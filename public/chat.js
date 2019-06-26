@@ -1,3 +1,4 @@
+
 // Make connection
 var socket = io.connect('https://chatserverforapps.herokuapp.com');
 
