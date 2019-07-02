@@ -1,6 +1,6 @@
 
 // Make connection
-var socket = io.connect('http://localhost:4000/');
+var socket = io.connect('https://chatserverforapps.herokuapp.com');
 socket.on('connect', function (data) {
     var CustomerID= Math.floor(Math.random()*100);
     console.log(CustomerID);
