@@ -4,7 +4,7 @@ var socket = require('socket.io');
 // App setup
 var app = express();
 var server = app.listen(process.env.PORT || 4000, function () {
-    console.log('listening for requests on port 4000,');
+    console.log('listening for requests on port',process.env.PORT);
 });
 var clients = [];
 // Static files
@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
                 break;
             }
         }
-
+    console.log(clients);
     });
 
 });
