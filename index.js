@@ -18,6 +18,7 @@ io.on('connection', (socket) => {
         var clientInfo = new Object();
         clientInfo.customId = data.customId;
         clientInfo.clientId = socket.id;
+        clientInfo.UserName=data.username;
         clients.push(clientInfo);
         console.log(clients);
     });
