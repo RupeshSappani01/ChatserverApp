@@ -26,17 +26,46 @@ io.on('connection', (socket) => {
         console.log(clients);
     });
 //Check User Online Status
-socket.on('IsActive',function(data){
-    var ReturnObj={};
-    var CheckingUserIDUserID=data.OtherUserID
-    var SendedUserID=data.SenderID
+socket.on('isActive', function (user) {
+    const userId = user.userId;
+    const user = null;
     clients.forEach(function (item, index) {
-        if (item.customId == CheckingUserIDUserID) {
-            console.log(item.clientId);
-            socket.broadcast.to(item.clientId).emit('typing', data);
+        if (item.customId == user.userId) {
+           user=item.clientId;
+        }else{
+            user = null;
         }
     })
-})
+   
+    const socketId = socket.id;
+    let response;
+    if(user) {
+      // User is active
+      response = {isActive: true};
+    } else {
+      // User is not active
+      response = {isActive: false};
+    }
+    const responseSocket = io.sockets.connected[socketId];
+    if(responseSocket) {
+        console.log(response)
+      responseSocket.emit('onIsActive', response);
+    }
+  });
+    // Handle chat event
+    socket.on('chat', function (data) {
+        console.log(data);
+
+        clients.forEach(function (item, index) {
+            if (item.customId == data.customId) {
+                console.log(item.clientId);
+                socket.broadcast.to(item.clientId).emit('chat', data);
+            }
+        })
+
+
+
+    });
 
     // Handle typing event
     socket.on('typing', function (data) {
