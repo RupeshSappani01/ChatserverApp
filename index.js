@@ -7,10 +7,13 @@ var server = app.listen(process.env.PORT || 4000, function () {
     console.log('listening for requests on port',process.env.PORT);
 });
 var clients = [];
+var CheckUserOnlineID="";
 // Static files
 app.use(express.static('public'));
 // Socket setup & pass server
-var io = socket(server);
+var io = socket(server,{
+    pingTimeout: 6000000,
+});
 io.on('connection', (socket) => {
     //console.log('made socket connection', socket.id);
     socket.on('storeClientInfo', function (data) {
@@ -22,21 +25,18 @@ io.on('connection', (socket) => {
         clients.push(clientInfo);
         console.log(clients);
     });
-
-    // Handle chat event
-    socket.on('chat', function (data) {
-        console.log(data);
-
-        clients.forEach(function (item, index) {
-            if (item.customId == data.customId) {
-                console.log(item.clientId);
-                socket.broadcast.to(item.clientId).emit('chat', data);
-            }
-        })
-
-
-
-    });
+//Check User Online Status
+socket.on('IsActive',function(data){
+    var ReturnObj={};
+    var CheckingUserIDUserID=data.OtherUserID
+    var SendedUserID=data.SenderID
+    clients.forEach(function (item, index) {
+        if (item.customId == CheckingUserIDUserID) {
+            console.log(item.clientId);
+            socket.broadcast.to(item.clientId).emit('typing', data);
+        }
+    })
+})
 
     // Handle typing event
     socket.on('typing', function (data) {
@@ -62,6 +62,74 @@ io.on('connection', (socket) => {
     });
 
 });
+
+
+// var express = require('express');
+// var socket = require('socket.io');
+
+// // App setup
+// var app = express();
+// var server = app.listen(process.env.PORT || 4000, function () {
+//     console.log('listening for requests on port',process.env.PORT);
+// });
+// var clients = [];
+// var CheckUserOnlineID="";
+// // Static files
+// app.use(express.static('public'));
+// // Socket setup & pass server
+// var io = socket(server);
+// io.on('connection', (socket) => {
+//     //console.log('made socket connection', socket.id);
+//     socket.on('storeClientInfo', function (data) {
+//         console.log('CustomerID', data);
+//         var clientInfo = new Object();
+//         clientInfo.customId = data.customId;
+//         clientInfo.clientId = socket.id;
+//         clientInfo.UserName=data.username;
+//         clients.push(clientInfo);
+//         console.log(clients);
+//     });
+// //Check User Online Status
+
+//     // Handle chat event
+//     socket.on('chat', function (data) {
+//         console.log(data);
+
+//         clients.forEach(function (item, index) {
+//             if (item.customId == data.customId) {
+//                 console.log(item.clientId);
+//                 socket.broadcast.to(item.clientId).emit('chat', data);
+//             }
+//         })
+
+
+
+//     });
+
+//     // Handle typing event
+//     socket.on('typing', function (data) {
+//         clients.forEach(function (item, index) {
+//             if (item.customId == data.customId) {
+//                 console.log(item.clientId);
+//                 socket.broadcast.to(item.clientId).emit('typing', data);
+//             }
+//         })
+
+//     });
+//     socket.on('disconnect', function (data) {
+//         console.log("Disconnected ID", socket.id);
+//         for (var i = 0, len = clients.length; i < len; ++i) {
+//             var c = clients[i];
+
+//             if (c.clientId == socket.id) {
+//                 clients.splice(i, 1);
+//                 break;
+//             }
+//         }
+//     console.log(clients);
+//     });
+
+// });
 // var express = require('express');
 // var socket = require('socket.io');
 
