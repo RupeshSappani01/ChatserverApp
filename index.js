@@ -17,6 +17,9 @@ var io = socket(server,{
 io.on('connection', (socket) => {
     //console.log('made socket connection', socket.id);
     socket.on('storeClientInfo', function (data) {
+        let response;
+        response = {UserID:data.customId,isActive: true};
+        socket.broadcast.emit('onIsActive',response)
         console.log('CustomerID', data);
         var clientInfo = new Object();
         clientInfo.customId = data.customId;
@@ -26,11 +29,11 @@ io.on('connection', (socket) => {
         console.log(clients);
     });
 //Check User Online Status
-socket.on('isActive', function (user) {
-    const userId = user.userId;
-    const user = null;
+socket.on('isActive', function (userId) {
+    var UserID = userId;
+    var user = null;
     clients.forEach(function (item, index) {
-        if (item.customId == user.userId) {
+        if (item.customId == userId) {
            user=item.clientId;
         }else{
             user = null;
@@ -41,10 +44,10 @@ socket.on('isActive', function (user) {
     let response;
     if(user) {
       // User is active
-      response = {isActive: true};
+      response = {UserID:userId,isActive: true};
     } else {
       // User is not active
-      response = {isActive: false};
+      response = {UserID:userId,isActive: false};
     }
     const responseSocket = io.sockets.connected[socketId];
     if(responseSocket) {
@@ -84,6 +87,9 @@ socket.on('isActive', function (user) {
 
             if (c.clientId == socket.id) {
                 clients.splice(i, 1);
+                let response;
+                response = {UserID:c.customId,isActive: false};
+                socket.broadcast.emit('onIsActive',response)
                 break;
             }
         }
