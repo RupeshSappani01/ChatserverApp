@@ -89,11 +89,18 @@ function GEtAllUsers(){
 socket.on('GetOnlineUsers',function(data){
 
     var tr='';
-    $.each(data,function(index,item){
-        tr+='<div id="oneoneuser" class="oneoneuser'+index+'" data-UserName='+item.UserName+' onclick="OpenChatAccording('+item.customId+','+index+')">';
-        tr +='<h6><span id="YourOnline">'+index+'</span>&nbsp;&nbsp;&nbsp;&nbsp;'+item.UserName+'</h6>'
-        tr+=' </div>' ;  
-    })
+    if(data.lenght!=0){
+        $.each(data,function(index,item){
+            if(item.customId!=getID){
+                tr+='<div id="oneoneuser" class="oneoneuser'+index+'" data-UserName='+item.UserName+' onclick="OpenChatAccording('+item.customId+','+index+')">';
+                tr +='<h6><span id="YourOnline">'+index+'</span>&nbsp;&nbsp;&nbsp;&nbsp;'+item.UserName+'</h6>'
+                tr+=' </div>' ;  
+            } 
+        })
+    }else{
+        tr +='<div style="color:red">No Users In Online</div>';
+    }
+   
     $('#ChatShowDiv').empty().append(tr);
           
 })
