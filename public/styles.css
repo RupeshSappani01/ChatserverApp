@@ -67,3 +67,42 @@ button{
     width: 100%;
     border-radius: 0 0 2px 2px;
 }
+#ChatShowDiv{
+    margin-top: 4em;
+    margin-left: auto;
+    margin-right: auto;
+    /* text-align: center; */
+    border: 1px solid lightgray;
+    width: 50%;
+}
+#oneoneuser{
+    padding: 1em;
+    border-bottom: 1px solid lightgray;
+}
+#YourOnline{
+    background-color: green;
+    color:green;
+    border-radius: 30px;
+}
+#YourMsg{
+    padding: 0.5em;
+    background-color: cadetblue;
+    color: white;
+    width: 22%;
+    border-radius: 37px;
+    margin-left: 1em;
+    margin-top: 1em;
+    clear: both;
+    float: left;
+}
+#OthersMsg{
+    padding: 0.5em;
+    background-color: blueviolet;
+    color: white;
+    width: 22%;
+    border-radius: 37px;
+    margin-right: 1em;
+    margin-top: 1em;
+    clear: both;
+    float: right; 
+}

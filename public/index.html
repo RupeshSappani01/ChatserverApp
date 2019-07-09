@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Chat Server</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
-        <link href="/styles.css" rel="stylesheet" />
-    </head>
-    <body>
-<h1 style="text-align: center">Chat Server</h1>
+<head>
+    <meta charset="utf-8">
+    <title>Chat Server</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+    <link href="/styles.css" rel="stylesheet" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div>
         <div id="mario-chat">
-            <h2>Mario Chat</h2>
-            <div id="chat-window">
-                <div id="output"></div>
-                <div id="feedback"></div>
-            </div>
-            <input id="CustomerID" type="text" placeholder="Customer ID" />
-            &nbsp;&nbsp;<div id="IsActive"></div>
-            <input id="handle" type="text" placeholder="Names" />
-            <input id="message" type="text" placeholder="Message" />
-            <button id="send">Send</button>
-        </div> 
+            <input id="GetID" type="text" placeholder="ID" />
+            <input id="GetName" type="text" placeholder="Enter Name" />
+            <button id="AddID">Submit</button>
+        </div>
+    </div>
+    <script>
+        AddID = document.getElementById('AddID');
+        GetID = document.getElementById('GetID');
+        GetName = document.getElementById('GetName');
+        AddID.addEventListener('click', function () {
+            window.location.href = '/login.html?ID=' + GetID.value + '&&Name=' + GetName.value + ''
+        })
+    </script>
+</body>
 
-        <script src="/chat.js"></script>
-    </body>
 </html>

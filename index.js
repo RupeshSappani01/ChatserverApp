@@ -12,7 +12,8 @@ var CheckUserOnlineID="";
 app.use(express.static('public'));
 // Socket setup & pass server
 var io = socket(server,{
-    pingTimeout: 6000000,
+    'pingTimeout': 6000000,
+    'pingInterval': 45000
 });
 io.on('connection', (socket) => {
     //console.log('made socket connection', socket.id);
@@ -27,19 +28,21 @@ io.on('connection', (socket) => {
         clientInfo.UserName=data.username;
         clients.push(clientInfo);
         console.log(clients);
+        socket.broadcast.emit('GetOnlineUsers',clients);
     });
 //Check User Online Status
 socket.on('isActive', function (userId) {
     var UserID = userId;
-    var user = null;
-    clients.forEach(function (item, index) {
-        if (item.customId == userId) {
-           user=item.clientId;
+    var user=null;
+    for (var i = 0, len = clients.length; i < len; ++i) {
+        var c = clients[i];
+        if (c.customId == UserID) {
+            user=c.clientId;
+            break;
         }else{
             user = null;
         }
-    })
-   
+    }
     const socketId = socket.id;
     let response;
     if(user) {
@@ -69,7 +72,10 @@ socket.on('isActive', function (userId) {
 
 
     });
-
+//online Users Get
+socket.on('GetOnlineUsers',function(data){
+socket.emit('GetOnlineUsers',clients);
+})
     // Handle typing event
     socket.on('typing', function (data) {
         clients.forEach(function (item, index) {
@@ -77,8 +83,7 @@ socket.on('isActive', function (userId) {
                 console.log(item.clientId);
                 socket.broadcast.to(item.clientId).emit('typing', data);
             }
-        })
-
+        }) 
     });
     socket.on('disconnect', function (data) {
         console.log("Disconnected ID", socket.id);
@@ -90,6 +95,7 @@ socket.on('isActive', function (userId) {
                 let response;
                 response = {UserID:c.customId,isActive: false};
                 socket.broadcast.emit('onIsActive',response)
+                socket.broadcast.emit('GetOnlineUsers',clients);
                 break;
             }
         }
