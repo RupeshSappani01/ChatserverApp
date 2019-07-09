@@ -45,14 +45,16 @@ message.addEventListener('keypress', function () {
 
 // Listen for events
 socket.on('chat', function (data) {
-    if(ClickedID=data.MyID){
+    if(ClickedID==data.MyID){
         feedback.innerHTML = '';
         output.innerHTML += ' <div id="OthersMsg">' + data.message + '</div>';
     } 
 });
 
 socket.on('typing', function (data) {
+    if(ClickedID==data.MyID){
     feedback.innerHTML = '<p><em>' + data.TyperName + ' is typing a message...</em></p>';
+    }
 });
 
 // socket.on('onIsActive', function (data) {
