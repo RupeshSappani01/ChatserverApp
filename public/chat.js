@@ -28,8 +28,10 @@ btn.addEventListener('click', function () {
         customId: ClickedID,
         MyID:getID
     });
-    output.innerHTML += ' <div id="YourMsg">'+message.value+'</div>';
+
+    output.innerHTML += '<div id="YourMsg">'+message.value+'</div>';
     message.value = "";
+
 });
 message.addEventListener('keypress', function () {
     socket.emit('typing', {
@@ -45,14 +47,14 @@ message.addEventListener('keypress', function () {
 
 // Listen for events
 socket.on('chat', function (data) {
-    if(ClickedID==data.MyID){
+  if(data.MyID==ClickedID){
         feedback.innerHTML = '';
         output.innerHTML += ' <div id="OthersMsg">' + data.message + '</div>';
-    } 
+}
 });
 
 socket.on('typing', function (data) {
-    if(ClickedID==data.MyID){
+    if(data.MyID==ClickedID){
     feedback.innerHTML = '<p><em>' + data.TyperName + ' is typing a message...</em></p>';
     }
 });
@@ -72,6 +74,8 @@ socket.on('typing', function (data) {
 var ClickedID;
 var ClickedName;
 function OpenChatAccording(item,index){
+   $('#output').empty();
+   $('#feedback').empty();
     ClickedID=item;
     ClickedName=$('.oneoneuser'+index+'').attr('data-UserName');
     $('#UserNameShoe').text(ClickedName);
@@ -83,7 +87,7 @@ function GEtAllUsers(){
     socket.emit('GetOnlineUsers','');
 }
 socket.on('GetOnlineUsers',function(data){
-    console.log(data);
+
     var tr='';
     $.each(data,function(index,item){
         tr+='<div id="oneoneuser" class="oneoneuser'+index+'" data-UserName='+item.UserName+' onclick="OpenChatAccording('+item.customId+','+index+')">';
