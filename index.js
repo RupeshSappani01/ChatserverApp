@@ -70,16 +70,16 @@ io.on('connection', (socket) => {
         }
         const responseSocket = io.sockets.connected[socketId];
         if (responseSocket) {
-            console.log(response)
+            // console.log(response)
             responseSocket.emit('onIsActive', response);
         }
     });
     // Handle chat event
     socket.on('chat', function (data) {
-        console.log(data);
+        // console.log(data);
         clients.forEach(function (item, index) {
             if (item.customId == data.customId) {
-                console.log(item.clientId);
+                // console.log(item.clientId);
                 socket.broadcast.to(item.clientId).emit('chat', data);
             }
         })
@@ -92,7 +92,7 @@ io.on('connection', (socket) => {
     socket.on('typing', function (data) {
         clients.forEach(function (item, index) {
             if (item.customId == data.customId) {
-                console.log(item.clientId);
+                // console.log(item.clientId);
                 socket.broadcast.to(item.clientId).emit('typing', data);
             }
         })
@@ -114,7 +114,7 @@ io.on('connection', (socket) => {
                 break;
             }
         }
-        console.log(clients);
+        console.log('DisconectedAfetr',clients);
     });
 
 });
