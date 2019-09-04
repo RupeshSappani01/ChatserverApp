@@ -13,8 +13,8 @@ var CheckUserOnlineID = "";
 app.use(express.static('public'));
 // Socket setup & pass server
 var io = socket(server, {
-    'pingTimeout': 6000000,
-    'pingInterval': 45000
+    'pingTimeout': 2000,
+    'pingInterval': 2500
 });
 io.on('connection', (socket) => {
     //console.log('made socket connection', socket.id);
