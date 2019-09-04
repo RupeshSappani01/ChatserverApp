@@ -111,7 +111,6 @@ io.on('connection', (socket) => {
                 };
                 socket.broadcast.emit('onIsActive', response)
                 socket.broadcast.emit('GetOnlineUsers', clients);
-                break;
             }
         }
         console.log('DisconectedAfetr',clients);
