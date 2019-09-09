@@ -17,7 +17,7 @@ var io = socket(server, {
     'pingInterval': 2500
 });
 io.on('connection', (socket) => {
-    //console.log('made socket connection', socket.id);
+    console.log('made socket connection', socket.id);
     socket.on('storeClientInfo', function (data) {
         let response;
         response = {
