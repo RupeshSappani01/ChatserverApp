@@ -76,7 +76,7 @@ io.on('connection', (socket) => {
     });
     // Handle chat event
     socket.on('chat', function (data) {
-        // console.log(data);
+        console.log(data);
         clients.forEach(function (item, index) {
             if (item.customId == data.customId) {
                 // console.log(item.clientId);
