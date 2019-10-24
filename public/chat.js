@@ -36,11 +36,6 @@ btn.addEventListener('click', function () {
     message.value = "";
 });
 message.addEventListener('keypress', function () {
-
-
-
-
-    
     socket.emit('typing', {
         TyperName: getUserName,
         customId: ClickedID,

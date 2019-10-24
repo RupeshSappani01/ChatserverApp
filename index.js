@@ -7,7 +7,7 @@ var server = app.listen(process.env.PORT || 4000, function () {
     console.log('listening for requests on port', process.env.PORT);
 });
 var clients = [];
-var DocumentsList=[];
+var DocumentsList = [];
 var CheckUserOnlineID = "";
 // Static files
 app.use(express.static('public'));
@@ -39,7 +39,6 @@ io.on('connection', (socket) => {
         // }       
         //  socket.broadcast.emit('GetOnlineUsers', clients);
     });
-
     //Check User Online Status
     socket.on('isActive', function (userId) {
         var UserID = userId;
@@ -88,6 +87,30 @@ io.on('connection', (socket) => {
     socket.on('GetOnlineUsers', function (data) {
         socket.emit('GetOnlineUsers', clients);
     })
+    //all users Online Status Checker
+    socket.on('UsersAllOnlineStatus',function(data){
+        var givingArray=[];
+        var clientInfo = new Object();
+        var user = null;
+        for(var j=0,len1=data.length;i<len1;++i){
+            for (var i = 0, len = clients.length; i < len; ++i) {
+                var c = clients[i];
+                var d= data[j];
+                if (c.customId == d.UserID) {
+                    clientInfo.UserID=d.UserID;
+                    clientInfo.Status=true;
+                } else {
+                    clientInfo.UserID=d.UserID;
+                    clientInfo.Status=false;
+                }
+            givingArray.push(clientInfo);
+            }
+        }
+       
+       
+            socket.broadcast.emit('UsersAllOnlineStatus', response);
+        
+    })
     // Handle typing event
     socket.on('typing', function (data) {
         clients.forEach(function (item, index) {
@@ -113,10 +136,10 @@ io.on('connection', (socket) => {
                 socket.broadcast.emit('GetOnlineUsers', clients);
                 break;
 
-                
+
             }
         }
-        console.log('DisconectedAfetr',clients);
+        console.log('DisconectedAfetr', clients);
     });
 
 });
