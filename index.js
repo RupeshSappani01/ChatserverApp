@@ -108,7 +108,7 @@ io.on('connection', (socket) => {
         }
        
        
-            socket.broadcast.emit('UsersAllOnlineStatus', response);
+            socket.broadcast.emit('UsersAllOnlineStatus', givingArray);
         
     })
     // Handle typing event
