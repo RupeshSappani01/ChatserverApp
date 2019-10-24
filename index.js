@@ -90,8 +90,8 @@ io.on('connection', (socket) => {
     //all users Online Status Checker
     socket.on('UsersAllOnlineStatus',function(data){
         console.log("aaaaaaaaaaaaa",data);
-        var addd=JSON.parse(data);
-        console.log("bbbbbbbbbbbb",addd);
+        // var addd=JSON.parse(data);
+        // console.log("bbbbbbbbbbbb",addd);
         var givingArray=[];
         var clientInfo = new Object();
         var user = null;
@@ -99,7 +99,7 @@ io.on('connection', (socket) => {
             for (var i = 0, len = clients.length; i < len; ++i) {
                 var c = clients[i];
                 var d= data[j];
-                if (c.customId == d.UserID) {
+                if (c.customId == d) {
                     clientInfo.UserID=d.UserID;
                     clientInfo.Status=true;
                 } else {
