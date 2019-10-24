@@ -109,7 +109,7 @@ io.on('connection', (socket) => {
             givingArray.push(clientInfo);
             }
         }
-       console.log("aaaaaaaaaaaaa",givingArray);
+       console.log("bbbbbbbb",givingArray);
        
             socket.broadcast.emit('UsersAllOnlineStatus', givingArray);
         
