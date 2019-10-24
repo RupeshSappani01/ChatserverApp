@@ -95,7 +95,7 @@ io.on('connection', (socket) => {
         var givingArray=[];
         var clientInfo = new Object();
         var user = null;
-        for(var j=0,len1=data.length;i<len1;++i){
+        for(var j=0,len1=data.length;i<len1;++j){
             for (var i = 0, len = clients.length; i < len; ++i) {
                 var c = clients[i];
                 var d= data[j];
