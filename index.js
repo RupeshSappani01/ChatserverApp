@@ -99,6 +99,7 @@ io.on('connection', (socket) => {
             for (var i = 0, len = clients.length; i < len; ++i) {
                 var c = clients[i];
                 var d= data[j];
+                console.log('ddddddddddddddddddd',d);
                 if (c.customId == d) {
                     clientInfo.UserID=d;
                     clientInfo.Status=true;
