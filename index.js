@@ -100,10 +100,10 @@ io.on('connection', (socket) => {
                 var c = clients[i];
                 var d= data[j];
                 if (c.customId == d) {
-                    clientInfo.UserID=d.UserID;
+                    clientInfo.UserID=d;
                     clientInfo.Status=true;
                 } else {
-                    clientInfo.UserID=d.UserID;
+                    clientInfo.UserID=d;
                     clientInfo.Status=false;
                 }
             givingArray.push(clientInfo);
