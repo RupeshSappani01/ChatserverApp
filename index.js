@@ -89,7 +89,9 @@ io.on('connection', (socket) => {
     })
     //all users Online Status Checker
     socket.on('UsersAllOnlineStatus',function(data){
-        console.log("aaaaaaaaaaaaa",JSON.parse(data));
+        console.log("aaaaaaaaaaaaa",data);
+        var addd=JSON.parse(data);
+        console.log("bbbbbbbbbbbb",addd);
         var givingArray=[];
         var clientInfo = new Object();
         var user = null;
