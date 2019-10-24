@@ -106,7 +106,7 @@ io.on('connection', (socket) => {
             givingArray.push(clientInfo);
             }
         }
-       
+       console.log("aaaaaaaaaaaaa",givingArray);
        
             socket.broadcast.emit('UsersAllOnlineStatus', givingArray);
         
