@@ -93,21 +93,27 @@ io.on('connection', (socket) => {
         // var addd=JSON.parse(data);
         // console.log("bbbbbbbbbbbb",addd);
         var givingArray=[];
-        var clientInfo = new Object();
+        var clientInfo1 = new Object();
         var user = null;
         for(var j=0,len1=data.length;j<len1;++j){
+            let alreadyChecked="";
             for (var i = 0, len = clients.length; i < len; ++i) {
                 var c = clients[i];
                 var d= data[j];
                 console.log('ddddddddddddddddddd',d);
-                if (c.customId == d) {
-                    clientInfo.UserID=d;
-                    clientInfo.Status=true;
-                } else {
-                    clientInfo.UserID=d;
-                    clientInfo.Status=false;
+                if(alreadyChecked==d){
+                    if (c.customId == d) {
+                        alreadyChecked=d;
+                        clientInfo1.UserID=d;
+                        clientInfo1.Status=true;
+                    } else {
+                        clientInfo1.UserID=d;
+                        clientInfo1.Status=false;
+                    }
+                    givingArray.push(clientInfo);
+                }else{
+                    continue;
                 }
-            givingArray.push(clientInfo);
             }
         }
        console.log("bbbbbbbb",givingArray);
