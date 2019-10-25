@@ -7,6 +7,7 @@ var server = app.listen(process.env.PORT || 4000, function () {
     console.log('listening for requests on port', process.env.PORT);
 });
 var clients = [];
+var givingArray=[];
 var DocumentsList = [];
 var CheckUserOnlineID = "";
 // Static files
@@ -89,10 +90,12 @@ io.on('connection', (socket) => {
     })
     //all users Online Status Checker
     socket.on('UsersAllOnlineStatus',function(data){
+        givingArray.splice(0,givingArray.length);
+        debugger;
         console.log("aaaaaaaaaaaaa",data);
         // var addd=JSON.parse(data);
         // console.log("bbbbbbbbbbbb",addd);
-        var givingArray=[];
+        
         var clientInfo1 = new Object();
         var user = null;
         for(var j=0,len1=data.length;j<len1;++j){
@@ -110,7 +113,7 @@ io.on('connection', (socket) => {
                         clientInfo1.UserID=d;
                         clientInfo1.Status=false;
                     }
-                    givingArray.push(clientInfo);
+                    givingArray.push(clientInfo1);
                 }else{
                     continue;
                 }

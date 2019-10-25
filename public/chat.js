@@ -18,6 +18,7 @@ var message = document.getElementById('message'),
     btn = document.getElementById('send'),
     GetID = document.getElementById('GetID');
 AddID = document.getElementById('AddID');
+checkID=document.getElementById('AddID11');
 ShowTheFirst = document.getElementById('ShowTheFirst');
 DontShowFirst = document.getElementById('DontShowFirst');
 CustomerID1111 = document.getElementById('CustomerID'),
@@ -35,6 +36,14 @@ btn.addEventListener('click', function () {
     output.innerHTML += '<div id="YourMsg">' + message.value + '</div>';
     message.value = "";
 });
+function ADDDDD(){
+debugger;
+    socket.emit('UsersAllOnlineStatus',[1,2,3,4])
+}
+
+socket.on('UsersAllOnlineStatus',function(data){
+    console.log(data);
+})
 message.addEventListener('keypress', function () {
     socket.emit('typing', {
         TyperName: getUserName,
