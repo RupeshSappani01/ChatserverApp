@@ -1,10 +1,12 @@
 var express = require('express');
 var socket = require('socket.io');
-
+var bodyParser =require('body-parser');
+var guidgenerator=require('../src/config/guidgenerator');
+var DatabaseSend=require('../src/config/database');
 // App setup
 var app = express();
 var server = app.listen(process.env.PORT || 4000, function () {
-    console.log('listening for requests on port', process.env.PORT);
+    console.log('listening for requests on port', process.env.PORT||4000);
 });
 var clients = [];
 var givingArray=[];
@@ -12,6 +14,11 @@ var DocumentsList = [];
 var CheckUserOnlineID = "";
 // Static files
 app.use(express.static('public'));
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json())
 // Socket setup & pass server
 var io = socket(server, {
     'pingTimeout': 2000,
@@ -76,6 +83,7 @@ io.on('connection', (socket) => {
     });
     // Handle chat event
     socket.on('chat', function (data) {
+
         console.log(data);
         clients.forEach(function (item, index) {
             if (item.customId == data.customId) {
@@ -155,6 +163,16 @@ io.on('connection', (socket) => {
 
 });
 
+app.post('/api/SendChatMsg',(req,res)=>{
+    var chatobj={
+        ChatID:guidgenerator(),
+        SendFrom:req.body.SendFrom,
+        SendTo:req.body.SendTo,
+        ChatText:req.body.ChatText,
+        SentDate:req.body.SentDate
+    }
+    return DatabaseSend(chatobj,res);
+});
 
 // var express = require('express');
 // var socket = require('socket.io');

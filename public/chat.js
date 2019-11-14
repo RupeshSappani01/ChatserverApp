@@ -18,7 +18,7 @@ var message = document.getElementById('message'),
     btn = document.getElementById('send'),
     GetID = document.getElementById('GetID');
 AddID = document.getElementById('AddID');
-checkID=document.getElementById('AddID11');
+checkID = document.getElementById('AddID11');
 ShowTheFirst = document.getElementById('ShowTheFirst');
 DontShowFirst = document.getElementById('DontShowFirst');
 CustomerID1111 = document.getElementById('CustomerID'),
@@ -36,12 +36,68 @@ btn.addEventListener('click', function () {
     output.innerHTML += '<div id="YourMsg">' + message.value + '</div>';
     message.value = "";
 });
-function ADDDDD(){
-debugger;
-    socket.emit('UsersAllOnlineStatus',[1,2,3,4])
-}
 
-socket.on('UsersAllOnlineStatus',function(data){
+function ADDDDD() {
+    var givingArray = [];
+
+    var data = [1, 2]
+    var clients = [{
+            "customId": 1
+        },
+        {
+            "customId": 2
+        },
+        {
+            "customId": 3
+        }
+    ]
+    debugger;
+    for (var j = 0, len1 = data.length; j < len1; ++j) {
+        let alreadyChecked = "";
+        for (var i = 0, len = clients.length; i < len; ++i) {
+            var c = clients[i];
+            var d = data[j];
+            console.log('ddddddddddddddddddd', d);
+            if (alreadyChecked != d) {
+                var dataobj = {}
+                if (c.customId == d) {
+                    alreadyChecked = d;
+                    dataobj.UserID = d;
+                    dataobj.Status = true;
+                } else {
+                    dataobj.UserID = d;
+                    dataobj.Status = false;
+                }
+                givingArray.push(dataobj);
+            } else {
+                continue;
+            }
+        }
+    }
+    socket.emit('UsersAllOnlineStatus', [1, 2, 3, 4])
+}
+for (var j = 0, len1 = data.length; j < len1; ++j) {
+    let alreadyChecked = "";
+    for (var i = 0, len = clients.length; i < len; ++i) {
+        var c = clients[i];
+        var d = data[j];
+        console.log('ddddddddddddddddddd', d);
+        if (alreadyChecked == d) {
+            if (c.customId == d) {
+                alreadyChecked = d;
+                clientInfo1.UserID = d;
+                clientInfo1.Status = true;
+            } else {
+                clientInfo1.UserID = d;
+                clientInfo1.Status = false;
+            }
+            givingArray.push(clientInfo1);
+        } else {
+            continue;
+        }
+    }
+}
+socket.on('UsersAllOnlineStatus', function (data) {
     console.log(data);
 })
 message.addEventListener('keypress', function () {

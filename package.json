@@ -4,13 +4,15 @@
   "description": "A chat app using WebSockets",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Rupesh Sappani",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.15.2",
+    "mssql": "^6.0.0",
     "socket.io": "^1.7.3"
   },
   "devDependencies": {
