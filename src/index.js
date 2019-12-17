@@ -32,7 +32,7 @@ nsp.on('connection',(socket)=>{
     console.log("connected",socket.id);
     socket.on("RegistedSuccess",function(data){
         console.log("Got The Message",data);
-        socket.broadcast.emit("RegistedSuccess",data);
+        socket.emit("RegistedSuccess",data);
  })
 })
 
