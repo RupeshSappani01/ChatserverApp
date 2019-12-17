@@ -12,6 +12,7 @@ var clients = [];
 var givingArray=[];
 var DocumentsList = [];
 var CheckUserOnlineID = "";
+
 // Static files
 app.use(express.static('public'));
 // parse requests of content-type - application/x-www-form-urlencoded
@@ -25,15 +26,17 @@ var io = socket(server, {
     'pingInterval': 2500
 });
 //Server For Register
+const nsp1=io.of("/");
 const nsp=io.of('/Register');
 nsp.on('connection',(socket)=>{
-    console.log("connected",socket);
- nsp.on("RegistedSuccess",function(data){
-    nsp.broadcast.emit("RegistedSuccess",data);
+    console.log("connected",socket.id);
+    socket.on("RegistedSuccess",function(data){
+        socket.broadcast.emit("RegistedSuccess",data);
  })
 })
+
 //Server For Chat
-io.on('connection', (socket) => {
+nsp1.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
     socket.on('storeClientInfo', function (data) {
         let response;
