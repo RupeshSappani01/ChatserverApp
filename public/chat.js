@@ -2,7 +2,9 @@
 var urlParams = new URLSearchParams(window.location.search);
 var getID = urlParams.get('ID');
 var getUserName = urlParams.get('Name');
-let socket = io.connect('https://chatserverforapps.herokuapp.com/');
+//let socket = io.connect('http://localhost:4000/');
+let socket = io.connect('https://networkingchatapp.herokuapp.com/');
+
 socket.on('connect', function (data) {
     var CustomerID = getID;
     var UserName = getUserName
@@ -37,69 +39,69 @@ btn.addEventListener('click', function () {
     message.value = "";
 });
 
-function ADDDDD() {
-    var givingArray = [];
+// function ADDDDD() {
+//     var givingArray = [];
 
-    var data = [1, 2]
-    var clients = [{
-            "customId": 1
-        },
-        {
-            "customId": 2
-        },
-        {
-            "customId": 3
-        }
-    ]
-    debugger;
-    for (var j = 0, len1 = data.length; j < len1; ++j) {
-        let alreadyChecked = "";
-        for (var i = 0, len = clients.length; i < len; ++i) {
-            var c = clients[i];
-            var d = data[j];
-            console.log('ddddddddddddddddddd', d);
-            if (alreadyChecked != d) {
-                var dataobj = {}
-                if (c.customId == d) {
-                    alreadyChecked = d;
-                    dataobj.UserID = d;
-                    dataobj.Status = true;
-                } else {
-                    dataobj.UserID = d;
-                    dataobj.Status = false;
-                }
-                givingArray.push(dataobj);
-            } else {
-                continue;
-            }
-        }
-    }
-    socket.emit('UsersAllOnlineStatus', [1, 2, 3, 4])
-}
-for (var j = 0, len1 = data.length; j < len1; ++j) {
-    let alreadyChecked = "";
-    for (var i = 0, len = clients.length; i < len; ++i) {
-        var c = clients[i];
-        var d = data[j];
-        console.log('ddddddddddddddddddd', d);
-        if (alreadyChecked == d) {
-            if (c.customId == d) {
-                alreadyChecked = d;
-                clientInfo1.UserID = d;
-                clientInfo1.Status = true;
-            } else {
-                clientInfo1.UserID = d;
-                clientInfo1.Status = false;
-            }
-            givingArray.push(clientInfo1);
-        } else {
-            continue;
-        }
-    }
-}
-socket.on('UsersAllOnlineStatus', function (data) {
-    console.log(data);
-})
+//     var data = [1, 2]
+//     var clients = [{
+//             "customId": 1
+//         },
+//         {
+//             "customId": 2
+//         },
+//         {
+//             "customId": 3
+//         }
+//     ]
+//     debugger;
+//     for (var j = 0, len1 = data.length; j < len1; ++j) {
+//         let alreadyChecked = "";
+//         for (var i = 0, len = clients.length; i < len; ++i) {
+//             var c = clients[i];
+//             var d = data[j];
+//             console.log('ddddddddddddddddddd', d);
+//             if (alreadyChecked != d) {
+//                 var dataobj = {}
+//                 if (c.customId == d) {
+//                     alreadyChecked = d;
+//                     dataobj.UserID = d;
+//                     dataobj.Status = true;
+//                 } else {
+//                     dataobj.UserID = d;
+//                     dataobj.Status = false;
+//                 }
+//                 givingArray.push(dataobj);
+//             } else {
+//                 continue;
+//             }
+//         }
+//     }
+//     socket.emit('UsersAllOnlineStatus', [1, 2, 3, 4])
+// }
+// for (var j = 0, len1 = data.length; j < len1; ++j) {
+//     let alreadyChecked = "";
+//     for (var i = 0, len = clients.length; i < len; ++i) {
+//         var c = clients[i];
+//         var d = data[j];
+//         console.log('ddddddddddddddddddd', d);
+//         if (alreadyChecked == d) {
+//             if (c.customId == d) {
+//                 alreadyChecked = d;
+//                 clientInfo1.UserID = d;
+//                 clientInfo1.Status = true;
+//             } else {
+//                 clientInfo1.UserID = d;
+//                 clientInfo1.Status = false;
+//             }
+//             givingArray.push(clientInfo1);
+//         } else {
+//             continue;
+//         }
+//     }
+// }
+// socket.on('UsersAllOnlineStatus', function (data) {
+//     console.log(data);
+// })
 message.addEventListener('keypress', function () {
     socket.emit('typing', {
         TyperName: getUserName,

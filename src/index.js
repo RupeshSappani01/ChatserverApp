@@ -24,6 +24,14 @@ var io = socket(server, {
     'pingTimeout': 2000,
     'pingInterval': 2500
 });
+//Server For Register
+const nsp=io.of('/Register');
+nsp.on('connection',(socket)=>{
+ nsp.on("RegistedSuccess",function(data){
+    nsp.broadcast.emit("RegistedSuccess",data);
+ })
+})
+//Server For Chat
 io.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
     socket.on('storeClientInfo', function (data) {
