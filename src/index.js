@@ -27,6 +27,7 @@ var io = socket(server, {
 //Server For Register
 const nsp=io.of('/Register');
 nsp.on('connection',(socket)=>{
+    console.log("connected",socket);
  nsp.on("RegistedSuccess",function(data){
     nsp.broadcast.emit("RegistedSuccess",data);
  })
