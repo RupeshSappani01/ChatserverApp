@@ -26,7 +26,7 @@ var io = socket(server, {
     'pingInterval': 2500
 });
 //Server For Register
-const nsp1=io.of("/");
+const nsp1=io.of("/Chat");
 const nsp=io.of('/Register');
 nsp.on('connection',(socket)=>{
     console.log("connected",socket.id);
