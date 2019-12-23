@@ -1,22 +1,24 @@
 var express = require('express');
 var socket = require('socket.io');
-var bodyParser =require('body-parser');
-var guidgenerator=require('../src/config/guidgenerator');
-var DatabaseSend=require('../src/config/database');
+var bodyParser = require('body-parser');
+var guidgenerator = require('../src/config/guidgenerator');
+var DatabaseSend = require('../src/config/database');
 // App setup
 var app = express();
 var server = app.listen(process.env.PORT || 4000, function () {
-    console.log('listening for requests on port', process.env.PORT||4000);
+    console.log('listening for requests on port', process.env.PORT || 4000);
 });
 var clients = [];
-var givingArray=[];
+var givingArray = [];
 var DocumentsList = [];
 var CheckUserOnlineID = "";
 
 // Static files
 app.use(express.static('public'));
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
@@ -26,14 +28,14 @@ var io = socket(server, {
     'pingInterval': 2500
 });
 //Server For Register
-const nsp1=io.of("/Chat");
-const nsp=io.of('/Register');
-nsp.on('connection',(socket)=>{
-    console.log("connected",socket.id);
-    socket.on("RegistedSuccess",function(data){
-        console.log("Got The Message",data);
-        socket.broadcast.emit("RegistedSuccess",data);
- })
+const nsp1 = io.of("/Chat");
+const nsp = io.of('/Register');
+nsp.on('connection', (socket) => {
+    console.log("connected", socket.id);
+    socket.on("RegistedSuccess", function (data) {
+        console.log("Got The Message", data);
+        socket.broadcast.emit("RegistedSuccess", data);
+    })
 })
 
 //Server For Chat
@@ -62,6 +64,7 @@ nsp1.on('connection', (socket) => {
     });
     //Check User Online Status
     socket.on('isActive', function (userId) {
+        console.log("isActive",userId)
         var UserID = userId;
         var user = null;
         for (var i = 0, len = clients.length; i < len; ++i) {
@@ -90,7 +93,7 @@ nsp1.on('connection', (socket) => {
         }
         const responseSocket = io.sockets.connected[socketId];
         if (responseSocket) {
-            // console.log(response)
+            //console.log(response)
             responseSocket.emit('onIsActive', response);
         }
     });
@@ -110,40 +113,40 @@ nsp1.on('connection', (socket) => {
         socket.emit('GetOnlineUsers', clients);
     })
     //all users Online Status Checker
-    socket.on('UsersAllOnlineStatus',function(data){
-        givingArray.splice(0,givingArray.length);
+    socket.on('UsersAllOnlineStatus', function (data) {
+        givingArray.splice(0, givingArray.length);
         debugger;
-        console.log("aaaaaaaaaaaaa",data);
+        console.log("aaaaaaaaaaaaa", data);
         // var addd=JSON.parse(data);
         // console.log("bbbbbbbbbbbb",addd);
-        
+
         var clientInfo1 = new Object();
         var user = null;
-        for(var j=0,len1=data.length;j<len1;++j){
-            let alreadyChecked="";
+        for (var j = 0, len1 = data.length; j < len1; ++j) {
+            let alreadyChecked = "";
             for (var i = 0, len = clients.length; i < len; ++i) {
                 var c = clients[i];
-                var d= data[j];
-                console.log('ddddddddddddddddddd',d);
-                if(alreadyChecked==d){
+                var d = data[j];
+                console.log('ddddddddddddddddddd', d);
+                if (alreadyChecked == d) {
                     if (c.customId == d) {
-                        alreadyChecked=d;
-                        clientInfo1.UserID=d;
-                        clientInfo1.Status=true;
+                        alreadyChecked = d;
+                        clientInfo1.UserID = d;
+                        clientInfo1.Status = true;
                     } else {
-                        clientInfo1.UserID=d;
-                        clientInfo1.Status=false;
+                        clientInfo1.UserID = d;
+                        clientInfo1.Status = false;
                     }
                     givingArray.push(clientInfo1);
-                }else{
+                } else {
                     continue;
                 }
             }
         }
-       console.log("bbbbbbbb",givingArray);
-       
-            socket.broadcast.emit('UsersAllOnlineStatus', givingArray);
-        
+        console.log("bbbbbbbb", givingArray);
+
+        socket.broadcast.emit('UsersAllOnlineStatus', givingArray);
+
     })
     // Handle typing event
     socket.on('typing', function (data) {
@@ -176,15 +179,15 @@ nsp1.on('connection', (socket) => {
 
 });
 
-app.post('/api/SendChatMsg',(req,res)=>{
-    var chatobj={
-        ChatID:guidgenerator(),
-        SendFrom:req.body.SendFrom,
-        SendTo:req.body.SendTo,
-        ChatText:req.body.ChatText,
-        SentDate:req.body.SentDate
+app.post('/api/SendChatMsg', (req, res) => {
+    var chatobj = {
+        ChatID: guidgenerator(),
+        SendFrom: req.body.SendFrom,
+        SendTo: req.body.SendTo,
+        ChatText: req.body.ChatText,
+        SentDate: req.body.SentDate
     }
-    return DatabaseSend(chatobj,res);
+    return DatabaseSend(chatobj, res);
 });
 
 // var express = require('express');
