@@ -39,6 +39,7 @@ nsp.on('connection', (socket) => {
     })
 })
 nsp2.on('connection', (socket) => {
+    console.log("REfreshbrowser",socket.id);
     socket.on("RefreshTheBrowser", function (data) {
         socket.broadcast.emit("RefreshTheBrowser", data);
     })
