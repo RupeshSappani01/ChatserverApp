@@ -30,6 +30,7 @@ var io = socket(server, {
 //Server For Register
 const nsp1 = io.of("/Chat");
 const nsp = io.of('/Register');
+const nsp2 = io.of("/RefreshBrowser");
 nsp.on('connection', (socket) => {
     console.log("connected", socket.id);
     socket.on("RegistedSuccess", function (data) {
@@ -37,7 +38,11 @@ nsp.on('connection', (socket) => {
         socket.broadcast.emit("RegistedSuccess", data);
     })
 })
-
+nsp2.on('connection', (socket) => {
+    socket.on("RefreshTheBrowser", function (data) {
+        socket.broadcast.emit("RefreshTheBrowser", data);
+    })
+})
 //Server For Chat
 nsp1.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
@@ -64,7 +69,7 @@ nsp1.on('connection', (socket) => {
     });
     //Check User Online Status
     socket.on('isActive', function (userId) {
-        console.log("isActive",userId)
+        console.log("isActive", userId)
         var UserID = userId;
         var user = null;
         for (var i = 0, len = clients.length; i < len; ++i) {
