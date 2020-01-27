@@ -85,6 +85,8 @@ nsp1.on('connection', (socket) => {
             console.log('isactive object',clients[i]);
             var c = clients[i];
             if (c.customId == UserID) {
+                console.log('customID',c.customId);
+                console.log('sendSust',UserID);
                 user = c.clientId;
                 console.log('userrrsrs',user);
                 break;
