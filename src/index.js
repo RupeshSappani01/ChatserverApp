@@ -99,7 +99,7 @@ nsp1.on('connection', (socket) => {
         }
         const responseSocket = io.sockets.connected[socketId];
         if (responseSocket) {
-            //console.log(response)
+            console.log(response)
             responseSocket.emit('onIsActive', response);
         }
     });
