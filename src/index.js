@@ -74,15 +74,18 @@ nsp1.on('connection', (socket) => {
         var UserID = userId;
         var user = null;
         for (var i = 0, len = clients.length; i < len; ++i) {
+            console.log(clients[i]);
             var c = clients[i];
             if (c.customId == UserID) {
                 user = c.clientId;
+                console.log(user);
                 break;
             } else {
                 user = null;
             }
         }
         const socketId = socket.id;
+        console.log(socketId);
         let response;
         if (user) {
             // User is active
