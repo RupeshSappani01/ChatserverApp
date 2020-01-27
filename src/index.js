@@ -172,7 +172,7 @@ nsp1.on('connection', (socket) => {
         clients.forEach(function (item, index) {
             if (item.customId == data.customId) {
                 console.log("typesocketid",item.clientId);
-                socket.broadcast.to(item.clientId).emit('typing', data);
+                io.to(item.clientId).emit('typing', data);
             }
         })
     });
