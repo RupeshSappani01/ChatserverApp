@@ -63,7 +63,6 @@ nsp1.on('connection', (socket) => {
             for(var i = 0, len = clients.length; i < len; ++i){
                 if(clients[i].clientId!=clientInfo.clientId){
                     clients.push(clientInfo);
-                    var clientInfo = new Object();
                 }
             }
         }else{
