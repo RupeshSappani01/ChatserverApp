@@ -82,18 +82,18 @@ nsp1.on('connection', (socket) => {
         var UserID = userId;
         var user = null;
         for (var i = 0, len = clients.length; i < len; ++i) {
-            console.log(clients[i]);
+            console.log('isactive object',clients[i]);
             var c = clients[i];
             if (c.customId == UserID) {
                 user = c.clientId;
-                console.log(user);
+                console.log('userrrsrs',user);
                 break;
             } else {
                 user = null;
             }
         }
         const socketId = socket.id;
-        console.log(socketId);
+        console.log('isactive socket',socketId);
         let response;
         if (user) {
             // User is active
