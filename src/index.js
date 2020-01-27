@@ -171,7 +171,7 @@ nsp1.on('connection', (socket) => {
     socket.on('typing', function (data) {
         clients.forEach(function (item, index) {
             if (item.customId == data.customId) {
-                console.log(item.clientId);
+                console.log("typesocketid",item.clientId);
                 socket.broadcast.to(item.clientId).emit('typing', data);
             }
         })
