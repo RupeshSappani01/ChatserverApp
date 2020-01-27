@@ -122,7 +122,7 @@ nsp1.on('connection', (socket) => {
         console.log(data);
         clients.forEach(function (item, index) {
             if (item.customId == data.customId) {
-                // console.log(item.clientId);
+                onsole.log('chat SoketId getting',item.clientId);
                 nsp1.to(item.clientId).emit('chat', data);
             }
         })
