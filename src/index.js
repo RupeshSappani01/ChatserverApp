@@ -59,7 +59,12 @@ nsp1.on('connection', (socket) => {
         clientInfo.customId = data.customId;
         clientInfo.clientId = socket.id;
         clientInfo.UserName = data.username;
-        clients.push(clientInfo);
+        for(var i = 0, len = clients.length; i < len; ++i){
+            if(clients[i].clientId!=clientInfo.clientId){
+                clients.push(clientInfo);
+            }
+        }
+       
         console.log(clients);
         // for (var i = 0, len = clients.length; i < len; ++i) {
         //     if(clients[i].customId==data.customId){
