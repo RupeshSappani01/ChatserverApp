@@ -118,11 +118,10 @@ nsp1.on('connection', (socket) => {
     });
     // Handle chat event
     socket.on('chat', function (data) {
-
         console.log(data);
         clients.forEach(function (item, index) {
             if (item.customId == data.customId) {
-                onsole.log('chat SoketId getting',item.clientId);
+                console.log('chat SoketId getting',item.clientId);
                 nsp1.to(item.clientId).emit('chat', data);
             }
         })
