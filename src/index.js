@@ -113,7 +113,7 @@ nsp1.on('connection', (socket) => {
         // const responseSocket = nsp1.sockets.connected[socketId];
         // if (responseSocket) {
         //     console.log(response)
-            nsp1.broadcast.emit('onIsActive', response);
+            socket.broadcast.emit('onIsActive', response);
         // }
     });
     // Handle chat event
