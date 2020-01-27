@@ -3,7 +3,7 @@ var urlParams = new URLSearchParams(window.location.search);
 var getID = urlParams.get('ID');
 var getUserName = urlParams.get('Name');
 //let socket = io.connect('http://localhost:4000/');
-let socket = io.connect('https://networkingchatapp.herokuapp.com/');
+let socket = io.connect('https://networkingchatapp.herokuapp.com/Chat');
 
 socket.on('connect', function (data) {
     var CustomerID = getID;
