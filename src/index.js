@@ -62,6 +62,8 @@ nsp1.on('connection', (socket) => {
         if(clients.length!=0){
             for(var i = 0, len = clients.length; i < len; ++i){
                 if(clients[i].clientId!=clientInfo.clientId){
+                    console.log("clientarrayID",clients[i].clientId)
+                    console.log("clientfromuser",clientInfo.clientId)
                     clients.push(clientInfo);
                 }
             }
@@ -133,7 +135,6 @@ nsp1.on('connection', (socket) => {
     //all users Online Status Checker
     socket.on('UsersAllOnlineStatus', function (data) {
         givingArray.splice(0, givingArray.length);
-        debugger;
         console.log("aaaaaaaaaaaaa", data);
         // var addd=JSON.parse(data);
         // console.log("bbbbbbbbbbbb",addd);
