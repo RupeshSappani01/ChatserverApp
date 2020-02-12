@@ -60,12 +60,14 @@ nsp1.on('connection', (socket) => {
         clientInfo.clientId = socket.id;
         clientInfo.UserName = data.username;
         if(clients.length!=0){
+            let givestatusexistidornot=0;
             for(var i = 0, len = clients.length; i < len; ++i){
-                if(clients[i].clientId!=clientInfo.clientId){
-                    console.log("clientarrayID",clients[i].clientId)
-                    console.log("clientfromuser",clientInfo.clientId)
-                    clients.push(clientInfo);
+                if(clients[i].clientId==clientInfo.clientId){
+                    givestatusexistidornot=1
                 }
+            }
+            if(givestatusexistidornot==0){
+                clients.push(clientInfo);
             }
         }else{
             clients.push(clientInfo);
